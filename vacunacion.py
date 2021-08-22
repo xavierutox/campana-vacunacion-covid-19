@@ -32,7 +32,11 @@ def get_minciencias_table(num, name, max_time=7200):
     except FileNotFoundError as e:
         print('error downloading table: ', e)
         sys.exit(1)
-    
+    finally:
+        for name in tab.colnames[1:]:
+            tab[name].fill_value = 0
+        tab = tab.filled()
+ 
     if not cached:
         tab.write(name, format='ascii.csv', overwrite=True)
 
@@ -53,9 +57,9 @@ def total_vacunados():
     vac = vac.cumsum(axis=1)
 
     # missing age rows will be inserted; centenarians are gathered
-    zero = np.zeros_like(vac[...,0])
+    cero = np.zeros_like(vac[...,0])
     cent = vac[..., edad >= 100].sum(axis=2)
-    vac = [vac[..., e==edad][...,0] if e in edad else zero for e in range(101)]
+    vac = [vac[..., e==edad][...,0] if e in edad else cero for e in range(101)]
     vac = np.moveaxis(vac, 0, 2)
     vac[...,-1] = cent 
     edad = list(range(101))
