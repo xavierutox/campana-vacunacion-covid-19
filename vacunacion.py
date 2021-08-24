@@ -124,7 +124,6 @@ def avance_edad(plot=False, show=True):
         fig.tight_layout()
         if show:
             fig.show()
-        fig.savefig('output/contrib/fraccion_vacunados_edad.pdf')
 
 
 def avance_fecha(plot=False, show=True):
@@ -189,7 +188,6 @@ def avance_fecha(plot=False, show=True):
         fig.tight_layout()
         if show:
             fig.show()
-        fig.savefig('output/contrib/fraccion_vacunados_fecha.pdf')
 
 (dosis, fecha, edad), vacunados = total_vacunados()
 avance_fecha(plot=True)
