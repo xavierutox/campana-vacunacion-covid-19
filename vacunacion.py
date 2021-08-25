@@ -5,6 +5,76 @@ from astropy import table
 import numpy as np
 
 # to make plots: pip3 install matplotlib 
+def vacunas_adquiridas(plot=False, show=True):
+
+    name = 'vacunas_importadas_fabricante_fecha'
+
+    tab = table.Table.read(f'input/{name}.csv')
+
+    print('Quick check of table consistency')
+    MSG = 'el núm de vacunas {lab} ({total}) difiere de lo reportado ({dec})'
+    for lab in np.unique(tab['laboratorio']):
+        carg = tab[tab['laboratorio'] == lab]
+        total_dec = int(carg[-1]['total_laboratorio_reportado'])
+        total = carg['cantidad'].sum()
+        dif = ' (conforme a lo declarado)'
+        if total_dec != total:
+            dif = ' (difiere de los {total_dec:11,} declarados)'
+        print(f'total {lab:12}{total:11,}{dif}')
+
+    total_dec = int(tab[-1]['total_reportado'])
+    total = tab['cantidad'].sum()
+    dif = ' (conforme a lo declarado)'
+    if total_dec != total:
+        dif = ' (difiere de los {total_dec:11,} declarados)'
+    print('-' * 29)
+    print(f'total {"":12}{total:11,}{dif}')
+
+    tab.remove_columns(['total_laboratorio_reportado', 'total_reportado'])
+    tab.write(f'output/contrib/{name}.csv', overwrite=True)
+    
+    if plot:
+
+        from matplotlib import pylab as plt
+
+        fig = plt.figure(3)
+        fig.clf()
+        ax = fig.add_subplot(111)
+
+        fecha = [np.datetime64(f) for f in tab['fecha']]
+        cantidad = tab['cantidad'] / 1e6
+        previo = np.zeros_like(cantidad)
+        
+        for lab in np.unique(tab['laboratorio']):
+            q = cantidad * (tab['laboratorio'] == lab)
+            total  = q.cumsum()
+            ax.fill_between(fecha, previo + total, previo, step="pre",
+                label=lab, alpha=0.5)
+            ax.plot(fecha, previo + total, drawstyle="steps")
+            previo += total
+       
+        ax.set_ylabel('millones de dosis')
+        ax.set_xlabel('fecha')
+
+        xticks = [np.datetime64(f"20{y}-{m:02}-01") for y in range(20,23) 
+                        for m in range(1,13)]
+        xticks = [t for t in xticks if t > fecha[0] and t < fecha[-1]]
+        xticklabels = [f"{str(f)[8:10]}/{str(f)[5:7]}" for f in xticks]
+        ax.set_xticks(xticks)
+        ax.set_xticklabels(xticklabels, rotation=60)
+        ax.set_ylim(0, ax.get_ylim()[1])
+        ax.set_xlim(min(fecha), max(fecha))
+        ax.grid(axis='both')
+
+        handles, labels = ax.get_legend_handles_labels()
+        ax.legend(reversed(handles), reversed(labels), loc='upper left')
+        
+        fig.tight_layout()
+        if show:
+            fig.show()
+        fig.savefig(f'output/contrib/{name}.pdf')
+
+    
 
 def get_minciencias_table(num, name, max_time=7200):
     """Cached download from MinCiencias's github"""
@@ -22,6 +92,8 @@ def get_minciencias_table(num, name, max_time=7200):
     
     try:
         cached = os.path.exists(name) and now-os.stat(name).st_mtime < max_time
+        print(os.path.exists(name))
+        print(now, os.stat(name).st_mtime, max_time)
     except:
         cached = False # if os.stat doesn't work on your OS
  
@@ -38,6 +110,7 @@ def get_minciencias_table(num, name, max_time=7200):
         tab = tab.filled()
  
     if not cached:
+        print(cached)
         tab.write(name, format='ascii.csv', overwrite=True)
 
     return tab
@@ -195,6 +268,7 @@ def avance_fecha(plot=False, show=True):
             fig.show()
         fig.savefig('output/contrib/fraccion_vacunados_fecha.pdf')
 
-(dosis, fecha, edad), vacunados = total_vacunados()
-avance_fecha(plot=True)
-avance_edad(plot=True)
+# (dosis, fecha, edad), vacunados = total_vacunados()
+# avance_fecha(plot=True)
+# avance_edad(plot=True)
+vacunas_adquiridas(plot=True)
