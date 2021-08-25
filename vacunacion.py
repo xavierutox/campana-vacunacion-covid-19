@@ -5,6 +5,8 @@ from astropy import table
 import numpy as np
 
 # to make plots: pip3 install matplotlib 
+
+
 def vacunas_adquiridas(plot=False, show=True):
 
     name = 'vacunas_importadas_fabricante_fecha'
@@ -92,25 +94,18 @@ def get_minciencias_table(num, name, max_time=7200):
     
     try:
         cached = os.path.exists(name) and now-os.stat(name).st_mtime < max_time
-        print(os.path.exists(name))
-        print(now, os.stat(name).st_mtime, max_time)
     except:
         cached = False # if os.stat doesn't work on your OS
- 
+        
     url = name if cached else f"{MINCIENCIAS_URL}/master/output/{name}"
 
-    try:
-        tab = table.Table.read(url, format='ascii.csv')
-    except FileNotFoundError as e:
-        print('error downloading table: ', e)
-        sys.exit(1)
-    finally:
-        for name in tab.colnames[1:]:
-            tab[name].fill_value = 0
-        tab = tab.filled()
+    tab = table.Table.read(url, format='ascii.csv')
+    
+    for colname in tab.colnames[1:]:
+        tab[colname].fill_value = 0
+    tab = tab.filled()
  
     if not cached:
-        print(cached)
         tab.write(name, format='ascii.csv', overwrite=True)
 
     return tab
@@ -227,7 +222,7 @@ def avance_fecha(plot=False, show=True):
     cols = [fecha, *avance]
     tab = table.Table(cols, names=names)
     
-    tab.write('output/contrib/fraccion_vacunados_edad.csv', 
+    tab.write('output/contrib/fraccion_vacunados_fecha.csv', 
                         overwrite=True, format='ascii.csv')
     
     if plot:
@@ -268,7 +263,16 @@ def avance_fecha(plot=False, show=True):
             fig.show()
         fig.savefig('output/contrib/fraccion_vacunados_fecha.pdf')
 
-# (dosis, fecha, edad), vacunados = total_vacunados()
-# avance_fecha(plot=True)
-# avance_edad(plot=True)
+def stock_de_vacunas(plot=False, show=True):
+
+    vac = [get_minciencias_table(83, f'vacunacion_fabricantes_{dosis}_T')
+            for dosis in ['1eraDosis', '2daDosis', 'UnicaDosis', 'Refuerzo']]
+    fecha = vac[0]['fecha']
+   
+    
+    
+
+(dosis, fecha, edad), vacunados = total_vacunados()
+avance_fecha(plot=True)
+avance_edad(plot=True)
 vacunas_adquiridas(plot=True)
