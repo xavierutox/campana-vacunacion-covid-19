@@ -151,7 +151,7 @@ def avance_edad(plot=False, show=True):
     (dosis, _, edad), vacunados = total_vacunados() 
     avance = vacunados[:,-1,:]
     
-    names = ['fecha', *dosis]
+    names = ['edad', *dosis]
     cols = [edad, *avance]
     tab = table.Table(cols, names=names)
     
