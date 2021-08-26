@@ -32,7 +32,7 @@ def vacunas_adquiridas(plot=False, show=True):
     print('-' * 29)
     print(f'total {"":12}{total:11,}{dif}')
 
-    tab.remove_columns(['total_laboratorio_reportado', 'total_reportado'])
+    # tab.remove_columns(['total_laboratorio_reportado', 'total_reportado'])
     tab.write(f'output/contrib/{name}.csv', overwrite=True)
     
     if plot:
