@@ -76,7 +76,7 @@ def vacunas_adquiridas(plot=False, show=True):
             fig.show()
         fig.savefig(f'output/contrib/{name}.pdf')
 
-    
+    return tab    
 
 def get_minciencias_table(num, name, max_time=7200):
     """Cached download from MinCiencias's github"""
@@ -198,6 +198,7 @@ def avance_edad(plot=False, show=True):
             fig.show()
         fig.savefig('output/contrib/fraccion_vacunados_edad.pdf')
 
+    return tab
 
 def avance_fecha(plot=False, show=True):
 
@@ -263,16 +264,129 @@ def avance_fecha(plot=False, show=True):
             fig.show()
         fig.savefig('output/contrib/fraccion_vacunados_fecha.pdf')
 
+    return tab
+
 def stock_de_vacunas(plot=False, show=True):
 
-    vac = [get_minciencias_table(83, f'vacunacion_fabricantes_{dosis}_T')
-            for dosis in ['1eraDosis', '2daDosis', 'UnicaDosis', 'Refuerzo']]
-    fecha = vac[0]['fecha']
-   
-    
-    
+    import re
 
-(dosis, fecha, edad), vacunados = total_vacunados()
-avance_fecha(plot=True)
-avance_edad(plot=True)
-vacunas_adquiridas(plot=True)
+    # determina primeras dosis y otras dosis  
+    name = 'vacunacion_fabricantes'
+    primera, segunda, *otras = [get_minciencias_table(83, f'{name}_{dosis}_T')
+            for dosis in ('1eraDosis', '2daDosis', 'UnicaDosis', 'Refuerzo')]
+
+    fecha = np.array(primera.columns[0])
+    colnames = primera.colnames[1:]
+   
+    def cumsum(tab):
+        arr = 0
+        for t in tab:
+            arr += np.array([t[n] for n in colnames], dtype=int)
+        return arr.cumsum(axis=1)
+ 
+    primera = cumsum([primera])
+    segunda = cumsum([segunda])
+    otras = cumsum(otras)
+    laboratorio = np.array([re.sub('.*\((.*)\)', '\\1', c) for c in colnames])
+
+    imports = np.zeros_like(primera)
+    import_name = 'output/contrib/vacunas_importadas_fabricante_fecha.csv'
+    imp = table.Table.read(import_name)
+
+    for i, lab in enumerate(laboratorio):
+        imp_lab = imp[imp['laboratorio'] == lab]
+        for cargamento in imp_lab:
+            imports[i, fecha == cargamento['fecha']] += cargamento['cantidad']
+        
+    imports = imports.cumsum(axis=1) 
+    usadas = primera + segunda + otras
+    reservadas = primera - segunda
+    stock = imports - usadas
+    
+    def add_total(tab):
+        return np.array([*tab, tab.sum(axis=0)]).T
+
+    laboratorio = np.array([*laboratorio, 'todos laboratorios'])
+    columns = np.broadcast_arrays(
+                    fecha[:,None], laboratorio, 
+                    add_total(usadas), add_total(reservadas), 
+                    add_total(imports), add_total(stock)
+              )
+    columns = [c.ravel() for c in columns]
+    names = ['fecha', 'laboratorio', 'dosis_administradas', 
+             'segundas_dosis_por_administrar', 'dosis_importadas', 
+             'dosis_en_stock']
+    
+    tab = table.Table(columns, names=names) 
+    output_name = 'output/contrib/stock_de_vacunas_fabricante_fecha'
+    tab.write(f"{output_name}.csv", format='ascii.csv', overwrite=True)
+    
+    if plot:
+
+        from matplotlib import pylab as plt
+        from itertools import zip_longest
+
+        fig = plt.figure(4)
+        fig.clf()
+
+        labs = laboratorio[:-1]
+        n = len(labs)
+        nx = int(np.sqrt(n))
+        ny = int(np.ceil(n / nx))
+        axes = fig.subplots(nx, ny, sharex=True, sharey=True)
+
+
+        plot_names = ('dosis_administradas', 'dosis_en_stock')
+        for i, (lab, ax) in enumerate(zip_longest(labs, axes.ravel())):
+
+            if lab is not None:
+
+                tab_lab = tab[tab['laboratorio'] == lab]             
+                fecha = tab_lab['fecha']
+                previo = np.zeros_like(fecha, dtype=float)
+
+                for name in plot_names:
+                    value = tab_lab[name] / 1e6
+                    ax.fill_between(fecha, previo + value, previo, alpha=0.5, 
+                        label=name.replace('_', ' ').replace('dosis ', ''))
+                    ax.plot(fecha, previo + value)
+                    previo += value
+
+            res = (tab_lab['dosis_administradas'] 
+                 + tab_lab['segundas_dosis_por_administrar']) / 1e6
+
+            ax.plot(fecha, res, 'k--', label='2ª por administrar')
+            ax.set_title(lab, y=0.85)
+
+            if i == 0:
+                h, l = ax.get_legend_handles_labels()
+                ax.legend(reversed(h), reversed(l), loc='center',
+                        title='dosis')
+            
+            ax.grid(axis='both')
+           
+            if ax in axes[:,0]:
+                ax.set_ylabel('millones de dosis')
+
+            if ax in axes[-1]:
+                ax.set_xlabel('fecha')
+                ax.set_xlim(min(fecha), max(fecha))
+                xticks = [f for f in fecha if f.endswith('01')]
+                xticklabels = [''] * len(xticks)
+                xticklabels = [f"{f[8:10]}/{f[5:7]}" for f in xticks]
+                ax.set_xticks(xticks)
+                ax.set_xticklabels(xticklabels, rotation=60)
+
+        fig.tight_layout()
+        fig.subplots_adjust(wspace=0, hspace=0)
+
+        if show:
+            fig.show()
+        fig.savefig(f'{output_name}.pdf')
+
+    return tab
+ 
+tab = avance_fecha(plot=True)
+tab = avance_edad(plot=True)
+tab = vacunas_adquiridas(plot=True)
+tab = stock_de_vacunas(plot=True)
