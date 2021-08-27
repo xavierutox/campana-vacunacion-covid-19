@@ -28,7 +28,7 @@ def vacunas_adquiridas(plot=False, show=True):
     total = tab['cantidad'].sum()
     dif = ' (conforme a lo declarado)'
     if total_dec != total:
-        dif = ' (difiere de los {total_dec:11,} declarados)'
+        dif = f' (difiere de los {total_dec:11,} declarados)'
     print('-' * 29)
     print(f'total {"":12}{total:11,}{dif}')
 
