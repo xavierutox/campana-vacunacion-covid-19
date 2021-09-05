@@ -75,6 +75,7 @@ def vacunas_adquiridas(plot=False, show=True):
         if show:
             fig.show()
         fig.savefig(f'output/contrib/{name}.pdf')
+        fig.savefig(f'output/contrib/{name}.png')
 
     return tab    
 
@@ -197,6 +198,7 @@ def avance_edad(plot=False, show=True):
         if show:
             fig.show()
         fig.savefig('output/contrib/fraccion_vacunados_edad.pdf')
+        fig.savefig('output/contrib/fraccion_vacunados_edad.png')
 
     return tab
 
@@ -263,6 +265,7 @@ def avance_fecha(plot=False, show=True):
         if show:
             fig.show()
         fig.savefig('output/contrib/fraccion_vacunados_fecha.pdf')
+        fig.savefig('output/contrib/fraccion_vacunados_fecha.png')
 
     return tab
 
@@ -383,6 +386,7 @@ def stock_de_vacunas(plot=False, show=True):
         if show:
             fig.show()
         fig.savefig(f'{output_name}.pdf')
+        fig.savefig(f'{output_name}.png')
 
     return tab
  
