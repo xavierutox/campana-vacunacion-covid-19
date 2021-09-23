@@ -79,7 +79,7 @@ def vacunas_adquiridas(plot=False, show=True):
 
     return tab    
 
-def get_minciencias_table(num, name, max_time=7200):
+def get_minciencias_table(num, name, max_time=0*7200):
     """Cached download from MinCiencias's github"""
 
     import os
