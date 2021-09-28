@@ -53,6 +53,9 @@ def vacunas_adquiridas(plot=False, show=True):
             ax.fill_between(fecha, previo + total, previo, step="pre",
                 label=lab, alpha=0.5)
             ax.plot(fecha, previo + total, drawstyle="steps")
+            if lab == 'Pfizer':
+                for f, c, t in zip(fecha, q, total):
+                    print(f, c, t)
             previo += total
        
         ax.set_ylabel('millones de dosis')
