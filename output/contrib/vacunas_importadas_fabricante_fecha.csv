@@ -66,4 +66,9 @@ fecha,origen,laboratorio,cantidad,total_laboratorio_reportado,total_reportado,fu
 2021-09-15,cargamento,Pfizer,299520,8439600,36312084,"https://www.minsal.cl/llega-a-chile-nuevo-cargamento-de-vacunas-pfizer-biontech-contra-sars-cov-2/,https://twitter.com/ministeriosalud/status/1438100551552675843"
 2021-09-23,cargamento,Pfizer,299520,8739120,>36611000,https://www.minsal.cl/llega-al-pais-nuevo-cargamento-de-vacunas-pfizer-biontech-contra-el-sars-cov-2-2/
 2021-09-24,cargamento,Sinovac,500000,0,>37111000,https://www.minsal.cl/gobierno-recibe-nuevo-cargamento-de-500-mil-dosis-de-sinovac-y-anuncia-vacunacion-en-colegios/
-2021-09-27,cargamento,AstraZeneca,163200,3788300,37274000,https://www.minsal.cl/llega-a-chile-nuevo-embarque-de-vacunas-astrazeneca-contra-sars-cov-2/
+2021-09-27,cargamento,AstraZeneca,163200,3788300,>37274000,https://www.minsal.cl/llega-a-chile-nuevo-embarque-de-vacunas-astrazeneca-contra-sars-cov-2/
+2021-09-30,cargamento,Pfizer,320580,9059700,>37595000,https://www.minsal.cl/llega-a-chile-nuevo-embarque-de-vacunas-pfizer-biontech-contra-sars-cov-2/
+2021-10-06,cargamento,Pfizer,235170,9294870,>37830000,https://www.minsal.cl/llega-a-chile-nueva-partida-de-vacunas-pfizer-biontech-contra-sars-cov-2/
+2021-10-07,cargamento,Pfizer,396630,9691500,,https://www.minsal.cl/llegan-a-chile-nuevos-cargamentos-de-vacunas-astrazeneca-y-pfizer-biontech-contra-sars-cov-2/
+2021-10-07,cargamento,AstraZeneca,242600,4030900,>38469000,https://www.minsal.cl/llegan-a-chile-nuevos-cargamentos-de-vacunas-astrazeneca-y-pfizer-biontech-contra-sars-cov-2/
+2021-10-14,cargamento,Pfizer,387270,10078770,38857000,https://www.minsal.cl/llegan-a-chile-nuevo-cargamento-de-vacunas-pfizer-biontech-contra-sars-cov-2/
