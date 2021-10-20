@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python3.9
 
 # to get these libraries: pip3 install astropy numpy 
 from astropy import table
