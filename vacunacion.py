@@ -53,9 +53,9 @@ def vacunas_adquiridas(plot=False, show=True):
             ax.fill_between(fecha, previo + total, previo, step="pre",
                 label=lab, alpha=0.5)
             ax.plot(fecha, previo + total, drawstyle="steps")
-            if lab == 'Pfizer':
-                for f, c, t in zip(fecha, q, total):
-                    print(f, c, t)
+            #if lab == 'Pfizer':
+            #    for f, c, t in zip(fecha, q, total):
+            #        print(f, c, t)
             previo += total
        
         ax.set_ylabel('millones de dosis')
@@ -82,7 +82,7 @@ def vacunas_adquiridas(plot=False, show=True):
 
     return tab    
 
-def get_minciencias_table(num, name, max_time=0*7200):
+def get_minciencias_table(num, name, max_time=7200):
     """Cached download from MinCiencias's github"""
 
     import os
@@ -141,7 +141,7 @@ def total_vacunados():
 
     inmunizado = np.zeros_like(iniciado)
     inmunizado[14:] = vac[1,:-14]
-    inmunizado[28:] += vac[2,:-28]
+    inmunizado[14:] += vac[2,:-14]
 
     vac = np.array([*vac, iniciado, terminado, inmunizado])
     
@@ -306,7 +306,7 @@ def stock_de_vacunas(plot=False, show=True):
         
     imports = imports.cumsum(axis=1) 
     usadas = primera + segunda + otras
-    reservadas = primera - segunda
+    reservadas = np.maximum(0, primera - segunda)
     stock = imports - usadas
     
     def add_total(tab):
