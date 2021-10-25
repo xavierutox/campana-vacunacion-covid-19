@@ -116,12 +116,12 @@ def get_minciencias_table(num, name, max_time=7200):
 
 def total_vacunados():
     
-    dosis = ('primera dosis', 'segunda dosis', 'única dosis',
-             'vacunación iniciada', 'vacunación completada',
-             'inmunización') 
+    dosis = ('primera dosis', 'segunda dosis', 'única dosis', 
+             'dosis de  refuerzo',
+             'vacunación iniciada', 'vacunación completada', 'inmunización') 
 
-    vac = [get_minciencias_table(78, f'vacunados_edad_fecha_{dosis}Dosis')
-                        for dosis in ('1era', '2da', 'Unica')]
+    vac = [get_minciencias_table(78, f'vacunados_edad_fecha_{dosis}')
+         for dosis in ('1eraDosis', '2daDosis', 'UnicaDosis', 'Refuerzo')]
 
     fecha = vac[0].colnames[1:]
     edad = vac[0]['Edad']
@@ -179,7 +179,7 @@ def avance_edad(plot=False, show=True):
         fig.clf()
         ax = fig.add_subplot(111)
         
-        for name, fmt in zip(tab.colnames[-3:], ('k-', 'm-', 'g-')):
+        for name, fmt in zip(tab.colnames[-4:], ('b', 'k-', 'm-', 'g-')):
             ax.plot(edad, tab[name], fmt, label=name)
 
         ax.set_ylabel('% del grupo etario')
@@ -239,7 +239,7 @@ def avance_fecha(plot=False, show=True):
         fig.clf()
         ax = fig.add_subplot(111)
         
-        for name, fmt in zip(tab.colnames[-3:], ('k-', 'm-', 'g-')):
+        for name, fmt in zip(tab.colnames[-4:], ('b-', 'k-', 'm-', 'g-')):
             ax.plot(fecha, tab[name], fmt, label=name)
 
         ax.set_ylabel('% de la población')
