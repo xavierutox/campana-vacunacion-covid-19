@@ -117,8 +117,8 @@ def get_minciencias_table(num, name, max_time=7200):
 def total_vacunados():
     
     dosis = ('primera dosis', 'segunda dosis', 'única dosis', 
-             'dosis de  refuerzo',
-             'vacunación iniciada', 'vacunación completada', 'inmunización') 
+             'vacunación iniciada', 'vacunación completada', 'inmunización', 
+             'dosis de refuerzo')
 
     vac = [get_minciencias_table(78, f'vacunados_edad_fecha_{dosis}')
          for dosis in ('1eraDosis', '2daDosis', 'UnicaDosis', 'Refuerzo')]
@@ -143,7 +143,7 @@ def total_vacunados():
     inmunizado[14:] = vac[1,:-14]
     inmunizado[14:] += vac[2,:-14]
 
-    vac = np.array([*vac, iniciado, terminado, inmunizado])
+    vac = np.array([*vac[0:3], iniciado, terminado, inmunizado, vac[3]])
     
     return (dosis, fecha, edad), vac 
 
