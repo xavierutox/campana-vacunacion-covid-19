@@ -76,4 +76,5 @@ fecha,origen,laboratorio,cantidad,total_laboratorio_reportado,total_reportado,fu
 2021-10-21,cargamento,Pfizer,405990,10729290,39507574,"https://www.emol.com/noticias/Nacional/2021/10/21/1036076/minsal-no-visucargamentliza-tercera-ola.html,https://www.uniminutoradio.com.co/chile-supera-las-395-millones-de-vacunas-contra-el-covid-19-recibidas/"
 2021-10-22,cargamento,Pfizer,225810,10955100,39733000,https://www.minsal.cl/llega-a-chile-nuevo-cargamento-de-vacunas-pfizer-biontech-contra-sars-cov-2-2/
 2021-10-28,cargamento,Pfizer,405990,11361090,40139374,"https://www.minsal.cl/llega-a-chile-cargamento-con-mas-de-405-mil-vacunas-pfizer-biontech-contra-sars-cov-2/,https://www.elmostrador.cl/dia/2021/10/28/nuevo-cargamento-con-405-mil-dosis-de-vacunas-pfizer-biontech-llegaron-al-pais-para-avanzar-con-el-proceso-de-vacunacion-contra-el-covid-19/"
-2021-10-29,cargamento,Pfizer,222300,11583390,40361000,https://www.minsal.cl/llega-a-chile-cargamento-con-mas-de-222-mil-vacunas-pfizer-biontech-contra-sars-cov-2/
+2021-10-29,cargamento,Pfizer,222300,11583390,>40361000,https://www.minsal.cl/llega-a-chile-cargamento-con-mas-de-222-mil-vacunas-pfizer-biontech-contra-sars-cov-2/
+2021-11-04,cargamento,Pfizer,387270,11970660,40748000,https://www.minsal.cl/llega-a-chile-cargamento-con-mas-de-387-mil-vacunas-pfizer-biontech-contra-sars-cov-2/
