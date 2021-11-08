@@ -185,6 +185,7 @@ def avance_edad(plot=False, show=True):
         ax.set_ylabel('% del grupo etario')
         ax.set_xlabel('edad')
         ax.set_ylim(0,100)
+        ax.set_xlim(0,100)
 
         xticks = range(0, 101, 10)
         ax.set_xticks(xticks)
