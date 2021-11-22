@@ -52,6 +52,7 @@ def total_vacunados():
     vac = np.array([[np.array(v[f], dtype=int) for f in fecha] for v in vac])
     vac = vac.cumsum(axis=1)
 
+
     # missing age rows will be inserted; centenarians are gathered
     zero = np.zeros_like(vac[...,0])
     cent = vac[..., edad >= 100].sum(axis=2)
