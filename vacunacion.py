@@ -3,6 +3,7 @@
 # to get these libraries: pip3 install astropy numpy 
 from astropy import table
 import numpy as np
+from datetime import datetime
 
 # to make plots: pip3 install matplotlib 
 
@@ -44,26 +45,26 @@ def vacunas_adquiridas(plot=False, show=True):
         ax = fig.add_subplot(111)
 
         fecha = [np.datetime64(f) for f in tab['fecha']]
+        fecha = np.hstack([fecha, np.datetime64(datetime.now())])
         cantidad = tab['cantidad'] / 1e6
-        previo = np.zeros_like(cantidad)
+        previo = np.hstack([np.zeros_like(cantidad), 0])
         
         for lab in np.unique(tab['laboratorio']):
             q = cantidad * (tab['laboratorio'] == lab)
-            total  = q.cumsum()
-            ax.fill_between(fecha, previo + total, previo, step="pre",
+            total = q.cumsum()
+            total = np.hstack([total, total[-1]])
+            ax.fill_between(fecha, previo + total, previo, step="post",
                 label=lab, alpha=0.5)
-            ax.plot(fecha, previo + total, drawstyle="steps")
-            #if lab == 'Pfizer':
-            #    for f, c, t in zip(fecha, q, total):
-            #        print(f, c, t)
+            ax.step(fecha, previo + total, where="post")
             previo += total
        
         ax.set_ylabel('millones de dosis')
         ax.set_xlabel('fecha')
 
-        xticks = [np.datetime64(f"20{y}-{m:02}-01") for y in range(20,23) 
+        xticks = [np.datetime64(f"20{y}-{m:02}-01T00:00:00") 
+            for y in range(20,24) 
                         for m in range(1,13)]
-        xticks = [t for t in xticks if t > fecha[0] and t < fecha[-1]]
+        xticks = [t for t in xticks if t >= fecha[0] and t <= fecha[-1]]
         xticklabels = [f"{str(f)[8:10]}/{str(f)[5:7]}" for f in xticks]
         ax.set_xticks(xticks)
         ax.set_xticklabels(xticklabels, rotation=60)
@@ -336,7 +337,8 @@ def stock_de_vacunas(plot=False, show=True):
         fig = plt.figure(4)
         fig.clf()
 
-        labs = laboratorio[:-1]
+        labs = ['Pfizer', 'Sinovac', 'AstraZeneca', 'CanSino']  
+            # labs = laboratorio[:-1]
         n = len(labs)
         nx = int(np.sqrt(n))
         ny = int(np.ceil(n / nx))
