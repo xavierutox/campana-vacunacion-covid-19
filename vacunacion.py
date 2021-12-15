@@ -240,9 +240,11 @@ def avance_fecha(plot=False, show=True):
         fig = plt.figure(1)
         fig.clf()
         ax = fig.add_subplot(111)
-        
+       
+        pfecha = [np.datetime64(f) for f in fecha]
+ 
         for name, fmt in zip(tab.colnames[-4:], ('b-', 'k-', 'm-', 'g-')):
-            ax.plot(fecha, tab[name], fmt, label=name)
+            ax.plot(pfecha, tab[name], fmt, label=name)
 
         ax.set_ylabel('% de la población')
         ax.set_xlabel('fecha')
@@ -252,7 +254,8 @@ def avance_fecha(plot=False, show=True):
         xticklabels = [f"{f[8:10]}/{f[5:7]}" for f in xticks]
         ax.set_xticks(xticks)
         ax.set_xticklabels(xticklabels, rotation=60)
-
+        today = np.datetime64(datetime.now())
+        ax.set_xlim(pfecha[0], today)
         yticks = list(range(0,110,10))
         yticklabels = [str(yt) if not yt % 20 else '' for yt in yticks]
         ax.set_yticks(yticks)
