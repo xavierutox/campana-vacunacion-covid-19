@@ -91,4 +91,5 @@ fecha,origen,laboratorio,cantidad,total_laboratorio_reportado,total_reportado,fu
 2021-12-02,cargamento,Sinovac,1020200,25660876,>45385000,https://www.minsal.cl/llegan-a-chile-nuevos-cargamentos-de-vacunas-pfizer-biontech-y-sinovac-contra-sars-cov-2/
 2021-12-03,cargamento,Pfizer,390780,15508740,>45776000,https://www.minsal.cl/llega-a-chile-nuevo-cargamento-de-vacunas-pfizer-biontech-contra-sars-cov-2-3/
 2021-12-09,cargamento,Pfizer,785070,16293810,>46561000,https://www.minsal.cl/llega-a-chile-cargamento-con-mas-de-785-mil-vacunas-pfizer-biontech-contra-sars-cov-2/
-2021-12-16,cargamento,Pfizer,785070,17078880,47346000,https://www.minsal.cl/gobierno-presenta-plan-no-invites-al-covid-enfocado-a-celebraciones-de-fin-de-ano/
+2021-12-16,cargamento,Pfizer,785070,17078880,>47346000,https://www.minsal.cl/gobierno-presenta-plan-no-invites-al-covid-enfocado-a-celebraciones-de-fin-de-ano/
+2021-12-23,cargamento,Pfizer,785070,17863950,48131000,https://www.minsal.cl/chile-supera-las-48-millones-de-dosis-de-vacunas-contra-sars-cov-2/
