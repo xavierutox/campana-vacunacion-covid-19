@@ -92,4 +92,6 @@ fecha,origen,laboratorio,cantidad,total_laboratorio_reportado,total_reportado,fu
 2021-12-03,cargamento,Pfizer,390780,15508740,>45776000,"https://www.minsal.cl/llega-a-chile-nuevo-cargamento-de-vacunas-pfizer-biontech-contra-sars-cov-2-3/"
 2021-12-09,cargamento,Pfizer,785070,16293810,>46561000,"https://www.minsal.cl/llega-a-chile-cargamento-con-mas-de-785-mil-vacunas-pfizer-biontech-contra-sars-cov-2/"
 2021-12-16,cargamento,Pfizer,785070,17078880,>47346000,"https://www.minsal.cl/gobierno-presenta-plan-no-invites-al-covid-enfocado-a-celebraciones-de-fin-de-ano/"
-2021-12-23,cargamento,Pfizer,785070,17863950,48131000,https://www.minsal.cl/chile-supera-las-48-millones-de-dosis-de-vacunas-contra-sars-cov-2/
+2021-12-23,cargamento,Pfizer,785070,17863950,>48131000,https://www.minsal.cl/chile-supera-las-48-millones-de-dosis-de-vacunas-contra-sars-cov-2/
+2021-12-30,cargamento,Pfizer,782730,18646680,>48914000,https://www.minsal.cl/llega-a-chile-nuevo-cargamento-con-782-mil-dosis-de-vacunas-pfizer-biontech/
+2021-12-31,cargamento,Sinovac,300000,25960876,49214000,https://www.minsal.cl/chile-cierra-el-ano-2021-con-el-arribo-de-un-nuevo-cargamento-de-300-mil-dosis-de-vacunas-sinovac/
