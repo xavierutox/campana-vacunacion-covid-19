@@ -181,7 +181,7 @@ def avance_edad(plot=False, show=True):
         fig.clf()
         ax = fig.add_subplot(111)
         
-        for name, fmt in zip(tab.colnames[-5:], ('b', 'k-', 'm-', 'g-')):
+        for name, fmt in zip(tab.colnames[-5:], ('b', 'k-', 'm-', 'g-', 'r')):
             ax.plot(edad, tab[name], fmt, label=name)
 
         ax.set_ylabel('% del grupo etario')
@@ -244,7 +244,7 @@ def avance_fecha(plot=False, show=True):
        
         pfecha = [np.datetime64(f) for f in fecha]
  
-        for name, fmt in zip(tab.colnames[-5:], ('b-', 'k-', 'm-', 'g-')):
+        for name, fmt in zip(tab.colnames[-5:], ('b-', 'k-', 'm-', 'g-', 'r')):
             ax.plot(pfecha, tab[name], fmt, label=name)
 
         ax.set_ylabel('% de la población')
