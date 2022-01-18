@@ -120,10 +120,10 @@ def total_vacunados():
     
     dosis = ('primera dosis', 'segunda dosis', 'única dosis', 
              'vacunación iniciada', 'vacunación completada', 'inmunización', 
-             'dosis de refuerzo')
+             '3ª dosis', '4ª dosis')
 
     vac = [get_minciencias_table(78, f'vacunados_edad_fecha_{dosis}')
-         for dosis in ('1eraDosis', '2daDosis', 'UnicaDosis', 'Refuerzo')]
+         for dosis in ('1eraDosis', '2daDosis', 'UnicaDosis', 'Refuerzo', 'Cuarta')]
 
     fecha = vac[0].colnames[1:]
     edad = vac[0]['Edad']
@@ -145,7 +145,7 @@ def total_vacunados():
     inmunizado[14:] = vac[1,:-14]
     inmunizado[14:] += vac[2,:-14]
 
-    vac = np.array([*vac[0:3], iniciado, terminado, inmunizado, vac[3]])
+    vac = np.array([*vac[0:3], iniciado, terminado, inmunizado, vac[3], vac[4]])
     
     return (dosis, fecha, edad), vac 
 
@@ -181,7 +181,7 @@ def avance_edad(plot=False, show=True):
         fig.clf()
         ax = fig.add_subplot(111)
         
-        for name, fmt in zip(tab.colnames[-4:], ('b', 'k-', 'm-', 'g-')):
+        for name, fmt in zip(tab.colnames[-5:], ('b', 'k-', 'm-', 'g-')):
             ax.plot(edad, tab[name], fmt, label=name)
 
         ax.set_ylabel('% del grupo etario')
@@ -244,7 +244,7 @@ def avance_fecha(plot=False, show=True):
        
         pfecha = [np.datetime64(f) for f in fecha]
  
-        for name, fmt in zip(tab.colnames[-4:], ('b-', 'k-', 'm-', 'g-')):
+        for name, fmt in zip(tab.colnames[-5:], ('b-', 'k-', 'm-', 'g-')):
             ax.plot(pfecha, tab[name], fmt, label=name)
 
         ax.set_ylabel('% de la población')
@@ -285,7 +285,7 @@ def stock_de_vacunas(plot=False, show=True):
     # determina primeras dosis y otras dosis  
     name = 'vacunacion_fabricantes'
     primera, segunda, *otras = [get_minciencias_table(83, f'{name}_{dosis}_T')
-            for dosis in ('1eraDosis', '2daDosis', 'UnicaDosis', 'Refuerzo')]
+            for dosis in ('1eraDosis', '2daDosis', 'UnicaDosis', 'Refuerzo', '4taDosis')]
 
     fecha = np.array(primera.columns[0])
     colnames = primera.colnames[1:]
