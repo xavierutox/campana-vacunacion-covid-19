@@ -97,11 +97,10 @@ def get_minciencias_table(num, name, max_time=7200):
     os.makedirs(os.path.split(name)[0], exist_ok=True)
     now = time.time()
     
-    #try:
-    #    cached = os.path.exists(name) and now-os.stat(name).st_mtime < max_time
-    #except:
-    #    cached = False # if os.stat doesn't work on your OS
-    cached = False
+    try:
+        cached = os.path.exists(name) and now-os.stat(name).st_mtime < max_time
+    except:
+        cached = False # if os.stat doesn't work on your OS
     
     url = name if cached else f"{MINCIENCIAS_URL}/master/output/{name}"
 
