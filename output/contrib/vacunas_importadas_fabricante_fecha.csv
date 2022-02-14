@@ -101,5 +101,6 @@ fecha,origen,laboratorio,cantidad,total_laboratorio_reportado,total_reportado,fu
 2022-01-14,cargamento,AstraZeneca,789400,4820300,50620000,https://www.minsal.cl/chile-recibe-mas-de-789-mil-dosis-de-vacunas-del-laboratorio-astrazeneca/
 2022-01-20,cargamento,Pfizer,309660,19573320,>50930000,https://www.minsal.cl/chile-recibe-mas-de-309-mil-dosis-de-vacunas-del-laboratorio-pfizer-biontech/
 2022-01-26,diferencia en el stock,Pfizer,-47580,,,
-2022-01-27,cargamento,Pfizer,309660,19835400,51190000,https://www.minsal.cl/chile-supera-los-51-millones-de-dosis-de-vacunas-contra-el-sars-cov-2/
-2022-02-03,cargamento,Pfizer,308490,20143890,51500000,https://www.minsal.cl/chile-supera-los-51-millones-de-dosis-de-vacunas-contra-el-sars-cov-2/
+2022-01-27,cargamento,Pfizer,309660,19835400,>51190000,https://www.minsal.cl/covid-19-capacidad-de-testeo-semanal-aumenta-de-500-mil-a-670-mil-examenes-diarios-en-las-ultimas-tres-semanas/
+2022-02-03,cargamento,Pfizer,308490,20143890,>51500000,https://www.minsal.cl/chile-supera-los-51-millones-de-dosis-de-vacunas-contra-el-sars-cov-2/
+2022-02-10,cargamento,Pfizer,308490,20452380,51800000,https://www.minsal.cl/chile-recibe-nuevo-embarque-con-mas-de-308-mil-dosis-de-vacunas-del-laboratorio-pfizer-biontech/
